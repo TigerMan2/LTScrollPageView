@@ -1,0 +1,630 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAC24CBF21B9259700536197 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CBE21B9259700536197 /* AppDelegate.m */; };
+		AAC24CC221B9259800536197 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CC121B9259800536197 /* ViewController.m */; };
+		AAC24CC521B9259800536197 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAC24CC321B9259800536197 /* Main.storyboard */; };
+		AAC24CC721B9259900536197 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC24CC621B9259900536197 /* Assets.xcassets */; };
+		AAC24CCA21B9259900536197 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAC24CC821B9259900536197 /* LaunchScreen.storyboard */; };
+		AAC24CCD21B9259900536197 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CCC21B9259900536197 /* main.m */; };
+		AAC24CD721B9259900536197 /* LTScrollPageViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CD621B9259900536197 /* LTScrollPageViewTests.m */; };
+		AAC24CE221B9259900536197 /* LTScrollPageViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CE121B9259900536197 /* LTScrollPageViewUITests.m */; };
+		AAC24CF221B925E300536197 /* LTSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CF121B925E300536197 /* LTSegmentView.m */; };
+		AAC24CF521B926E500536197 /* LTPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CF421B926E500536197 /* LTPageContentView.m */; };
+		AAC24CF821B9280400536197 /* LTTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CF721B9280400536197 /* LTTitleView.m */; };
+		AAC24CFB21B9284800536197 /* LTSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CFA21B9284800536197 /* LTSegmentStyle.m */; };
+		AAC24CFE21B9289700536197 /* UIView+LTFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CFD21B9289700536197 /* UIView+LTFrame.m */; };
+		AAE7B7B821BD03FA00241255 /* LTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7B7B721BD03FA00241255 /* LTCollectionView.m */; };
+		AAE7B7BB21BD195600241255 /* UIViewController+LTScrollPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7B7BA21BD195600241255 /* UIViewController+LTScrollPageController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AAC24CD321B9259900536197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAC24CB221B9259700536197 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAC24CB921B9259700536197;
+			remoteInfo = LTScrollPageView;
+		};
+		AAC24CDE21B9259900536197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAC24CB221B9259700536197 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAC24CB921B9259700536197;
+			remoteInfo = LTScrollPageView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AA13BE7521BA200E00460E10 /* LTScrollPageViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTScrollPageViewDelegate.h; sourceTree = "<group>"; };
+		AAC24CBA21B9259700536197 /* LTScrollPageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LTScrollPageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAC24CBD21B9259700536197 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAC24CBE21B9259700536197 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AAC24CC021B9259700536197 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		AAC24CC121B9259800536197 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		AAC24CC421B9259800536197 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AAC24CC621B9259900536197 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AAC24CC921B9259900536197 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AAC24CCB21B9259900536197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAC24CCC21B9259900536197 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAC24CD221B9259900536197 /* LTScrollPageViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LTScrollPageViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAC24CD621B9259900536197 /* LTScrollPageViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTScrollPageViewTests.m; sourceTree = "<group>"; };
+		AAC24CD821B9259900536197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAC24CDD21B9259900536197 /* LTScrollPageViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LTScrollPageViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAC24CE121B9259900536197 /* LTScrollPageViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTScrollPageViewUITests.m; sourceTree = "<group>"; };
+		AAC24CE321B9259900536197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAC24CF021B925E300536197 /* LTSegmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTSegmentView.h; sourceTree = "<group>"; };
+		AAC24CF121B925E300536197 /* LTSegmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTSegmentView.m; sourceTree = "<group>"; };
+		AAC24CF321B926E500536197 /* LTPageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTPageContentView.h; sourceTree = "<group>"; };
+		AAC24CF421B926E500536197 /* LTPageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTPageContentView.m; sourceTree = "<group>"; };
+		AAC24CF621B9280400536197 /* LTTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTTitleView.h; sourceTree = "<group>"; };
+		AAC24CF721B9280400536197 /* LTTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTTitleView.m; sourceTree = "<group>"; };
+		AAC24CF921B9284800536197 /* LTSegmentStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTSegmentStyle.h; sourceTree = "<group>"; };
+		AAC24CFA21B9284800536197 /* LTSegmentStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTSegmentStyle.m; sourceTree = "<group>"; };
+		AAC24CFC21B9289700536197 /* UIView+LTFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+LTFrame.h"; sourceTree = "<group>"; };
+		AAC24CFD21B9289700536197 /* UIView+LTFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+LTFrame.m"; sourceTree = "<group>"; };
+		AAE7B7B621BD03FA00241255 /* LTCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTCollectionView.h; sourceTree = "<group>"; };
+		AAE7B7B721BD03FA00241255 /* LTCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTCollectionView.m; sourceTree = "<group>"; };
+		AAE7B7B921BD195600241255 /* UIViewController+LTScrollPageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LTScrollPageController.h"; sourceTree = "<group>"; };
+		AAE7B7BA21BD195600241255 /* UIViewController+LTScrollPageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LTScrollPageController.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAC24CB721B9259700536197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC24CCF21B9259900536197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC24CDA21B9259900536197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AAC24CB121B9259700536197 = {
+			isa = PBXGroup;
+			children = (
+				AAC24CBC21B9259700536197 /* LTScrollPageView */,
+				AAC24CD521B9259900536197 /* LTScrollPageViewTests */,
+				AAC24CE021B9259900536197 /* LTScrollPageViewUITests */,
+				AAC24CBB21B9259700536197 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AAC24CBB21B9259700536197 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAC24CBA21B9259700536197 /* LTScrollPageView.app */,
+				AAC24CD221B9259900536197 /* LTScrollPageViewTests.xctest */,
+				AAC24CDD21B9259900536197 /* LTScrollPageViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAC24CBC21B9259700536197 /* LTScrollPageView */ = {
+			isa = PBXGroup;
+			children = (
+				AAC24CEF21B925B200536197 /* LTScrollPageView */,
+				AAC24CBD21B9259700536197 /* AppDelegate.h */,
+				AAC24CBE21B9259700536197 /* AppDelegate.m */,
+				AAC24CC021B9259700536197 /* ViewController.h */,
+				AAC24CC121B9259800536197 /* ViewController.m */,
+				AAC24CC321B9259800536197 /* Main.storyboard */,
+				AAC24CC621B9259900536197 /* Assets.xcassets */,
+				AAC24CC821B9259900536197 /* LaunchScreen.storyboard */,
+				AAC24CCB21B9259900536197 /* Info.plist */,
+				AAC24CCC21B9259900536197 /* main.m */,
+			);
+			path = LTScrollPageView;
+			sourceTree = "<group>";
+		};
+		AAC24CD521B9259900536197 /* LTScrollPageViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				AAC24CD621B9259900536197 /* LTScrollPageViewTests.m */,
+				AAC24CD821B9259900536197 /* Info.plist */,
+			);
+			path = LTScrollPageViewTests;
+			sourceTree = "<group>";
+		};
+		AAC24CE021B9259900536197 /* LTScrollPageViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AAC24CE121B9259900536197 /* LTScrollPageViewUITests.m */,
+				AAC24CE321B9259900536197 /* Info.plist */,
+			);
+			path = LTScrollPageViewUITests;
+			sourceTree = "<group>";
+		};
+		AAC24CEF21B925B200536197 /* LTScrollPageView */ = {
+			isa = PBXGroup;
+			children = (
+				AAC24CF021B925E300536197 /* LTSegmentView.h */,
+				AAC24CF121B925E300536197 /* LTSegmentView.m */,
+				AAC24CF321B926E500536197 /* LTPageContentView.h */,
+				AAC24CF421B926E500536197 /* LTPageContentView.m */,
+				AAE7B7B621BD03FA00241255 /* LTCollectionView.h */,
+				AAE7B7B721BD03FA00241255 /* LTCollectionView.m */,
+				AAC24CF621B9280400536197 /* LTTitleView.h */,
+				AAC24CF721B9280400536197 /* LTTitleView.m */,
+				AAC24CF921B9284800536197 /* LTSegmentStyle.h */,
+				AAC24CFA21B9284800536197 /* LTSegmentStyle.m */,
+				AAC24CFC21B9289700536197 /* UIView+LTFrame.h */,
+				AAC24CFD21B9289700536197 /* UIView+LTFrame.m */,
+				AA13BE7521BA200E00460E10 /* LTScrollPageViewDelegate.h */,
+				AAE7B7B921BD195600241255 /* UIViewController+LTScrollPageController.h */,
+				AAE7B7BA21BD195600241255 /* UIViewController+LTScrollPageController.m */,
+			);
+			path = LTScrollPageView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAC24CB921B9259700536197 /* LTScrollPageView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAC24CE621B9259900536197 /* Build configuration list for PBXNativeTarget "LTScrollPageView" */;
+			buildPhases = (
+				AAC24CB621B9259700536197 /* Sources */,
+				AAC24CB721B9259700536197 /* Frameworks */,
+				AAC24CB821B9259700536197 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LTScrollPageView;
+			productName = LTScrollPageView;
+			productReference = AAC24CBA21B9259700536197 /* LTScrollPageView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AAC24CD121B9259900536197 /* LTScrollPageViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAC24CE921B9259900536197 /* Build configuration list for PBXNativeTarget "LTScrollPageViewTests" */;
+			buildPhases = (
+				AAC24CCE21B9259900536197 /* Sources */,
+				AAC24CCF21B9259900536197 /* Frameworks */,
+				AAC24CD021B9259900536197 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAC24CD421B9259900536197 /* PBXTargetDependency */,
+			);
+			name = LTScrollPageViewTests;
+			productName = LTScrollPageViewTests;
+			productReference = AAC24CD221B9259900536197 /* LTScrollPageViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AAC24CDC21B9259900536197 /* LTScrollPageViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAC24CEC21B9259900536197 /* Build configuration list for PBXNativeTarget "LTScrollPageViewUITests" */;
+			buildPhases = (
+				AAC24CD921B9259900536197 /* Sources */,
+				AAC24CDA21B9259900536197 /* Frameworks */,
+				AAC24CDB21B9259900536197 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAC24CDF21B9259900536197 /* PBXTargetDependency */,
+			);
+			name = LTScrollPageViewUITests;
+			productName = LTScrollPageViewUITests;
+			productReference = AAC24CDD21B9259900536197 /* LTScrollPageViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAC24CB221B9259700536197 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = mrstock;
+				TargetAttributes = {
+					AAC24CB921B9259700536197 = {
+						CreatedOnToolsVersion = 9.3.1;
+					};
+					AAC24CD121B9259900536197 = {
+						CreatedOnToolsVersion = 9.3.1;
+						TestTargetID = AAC24CB921B9259700536197;
+					};
+					AAC24CDC21B9259900536197 = {
+						CreatedOnToolsVersion = 9.3.1;
+						TestTargetID = AAC24CB921B9259700536197;
+					};
+				};
+			};
+			buildConfigurationList = AAC24CB521B9259700536197 /* Build configuration list for PBXProject "LTScrollPageView" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AAC24CB121B9259700536197;
+			productRefGroup = AAC24CBB21B9259700536197 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAC24CB921B9259700536197 /* LTScrollPageView */,
+				AAC24CD121B9259900536197 /* LTScrollPageViewTests */,
+				AAC24CDC21B9259900536197 /* LTScrollPageViewUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAC24CB821B9259700536197 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC24CCA21B9259900536197 /* LaunchScreen.storyboard in Resources */,
+				AAC24CC721B9259900536197 /* Assets.xcassets in Resources */,
+				AAC24CC521B9259800536197 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC24CD021B9259900536197 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC24CDB21B9259900536197 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAC24CB621B9259700536197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAE7B7BB21BD195600241255 /* UIViewController+LTScrollPageController.m in Sources */,
+				AAC24CF221B925E300536197 /* LTSegmentView.m in Sources */,
+				AAC24CF521B926E500536197 /* LTPageContentView.m in Sources */,
+				AAC24CFE21B9289700536197 /* UIView+LTFrame.m in Sources */,
+				AAC24CC221B9259800536197 /* ViewController.m in Sources */,
+				AAE7B7B821BD03FA00241255 /* LTCollectionView.m in Sources */,
+				AAC24CCD21B9259900536197 /* main.m in Sources */,
+				AAC24CFB21B9284800536197 /* LTSegmentStyle.m in Sources */,
+				AAC24CBF21B9259700536197 /* AppDelegate.m in Sources */,
+				AAC24CF821B9280400536197 /* LTTitleView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC24CCE21B9259900536197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC24CD721B9259900536197 /* LTScrollPageViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAC24CD921B9259900536197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC24CE221B9259900536197 /* LTScrollPageViewUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AAC24CD421B9259900536197 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAC24CB921B9259700536197 /* LTScrollPageView */;
+			targetProxy = AAC24CD321B9259900536197 /* PBXContainerItemProxy */;
+		};
+		AAC24CDF21B9259900536197 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAC24CB921B9259700536197 /* LTScrollPageView */;
+			targetProxy = AAC24CDE21B9259900536197 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AAC24CC321B9259800536197 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAC24CC421B9259800536197 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AAC24CC821B9259900536197 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAC24CC921B9259900536197 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AAC24CE421B9259900536197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AAC24CE521B9259900536197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AAC24CE721B9259900536197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KQ7NY22246;
+				INFOPLIST_FILE = LTScrollPageView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrstock.LTScrollPageView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AAC24CE821B9259900536197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KQ7NY22246;
+				INFOPLIST_FILE = LTScrollPageView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrstock.LTScrollPageView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AAC24CEA21B9259900536197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LTScrollPageViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrstock.LTScrollPageViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LTScrollPageView.app/LTScrollPageView";
+			};
+			name = Debug;
+		};
+		AAC24CEB21B9259900536197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LTScrollPageViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrstock.LTScrollPageViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LTScrollPageView.app/LTScrollPageView";
+			};
+			name = Release;
+		};
+		AAC24CED21B9259900536197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LTScrollPageViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrstock.LTScrollPageViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LTScrollPageView;
+			};
+			name = Debug;
+		};
+		AAC24CEE21B9259900536197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LTScrollPageViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrstock.LTScrollPageViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LTScrollPageView;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAC24CB521B9259700536197 /* Build configuration list for PBXProject "LTScrollPageView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC24CE421B9259900536197 /* Debug */,
+				AAC24CE521B9259900536197 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAC24CE621B9259900536197 /* Build configuration list for PBXNativeTarget "LTScrollPageView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC24CE721B9259900536197 /* Debug */,
+				AAC24CE821B9259900536197 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAC24CE921B9259900536197 /* Build configuration list for PBXNativeTarget "LTScrollPageViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC24CEA21B9259900536197 /* Debug */,
+				AAC24CEB21B9259900536197 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAC24CEC21B9259900536197 /* Build configuration list for PBXNativeTarget "LTScrollPageViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC24CED21B9259900536197 /* Debug */,
+				AAC24CEE21B9259900536197 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAC24CB221B9259700536197 /* Project object */;
+}
