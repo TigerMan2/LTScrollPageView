@@ -20,8 +20,6 @@
 		AAC24CF821B9280400536197 /* LTTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CF721B9280400536197 /* LTTitleView.m */; };
 		AAC24CFB21B9284800536197 /* LTSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CFA21B9284800536197 /* LTSegmentStyle.m */; };
 		AAC24CFE21B9289700536197 /* UIView+LTFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC24CFD21B9289700536197 /* UIView+LTFrame.m */; };
-		AAE7B7B821BD03FA00241255 /* LTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7B7B721BD03FA00241255 /* LTCollectionView.m */; };
-		AAE7B7BB21BD195600241255 /* UIViewController+LTScrollPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7B7BA21BD195600241255 /* UIViewController+LTScrollPageController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA0B1C1D21BF5ABD001E6E38 /* LTScrollPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTScrollPageView.h; sourceTree = "<group>"; };
 		AA13BE7521BA200E00460E10 /* LTScrollPageViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTScrollPageViewDelegate.h; sourceTree = "<group>"; };
 		AAC24CBA21B9259700536197 /* LTScrollPageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LTScrollPageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAC24CBD21B9259700536197 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,10 +68,6 @@
 		AAC24CFA21B9284800536197 /* LTSegmentStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTSegmentStyle.m; sourceTree = "<group>"; };
 		AAC24CFC21B9289700536197 /* UIView+LTFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+LTFrame.h"; sourceTree = "<group>"; };
 		AAC24CFD21B9289700536197 /* UIView+LTFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+LTFrame.m"; sourceTree = "<group>"; };
-		AAE7B7B621BD03FA00241255 /* LTCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LTCollectionView.h; sourceTree = "<group>"; };
-		AAE7B7B721BD03FA00241255 /* LTCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LTCollectionView.m; sourceTree = "<group>"; };
-		AAE7B7B921BD195600241255 /* UIViewController+LTScrollPageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LTScrollPageController.h"; sourceTree = "<group>"; };
-		AAE7B7BA21BD195600241255 /* UIViewController+LTScrollPageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LTScrollPageController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,8 +157,6 @@
 				AAC24CF121B925E300536197 /* LTSegmentView.m */,
 				AAC24CF321B926E500536197 /* LTPageContentView.h */,
 				AAC24CF421B926E500536197 /* LTPageContentView.m */,
-				AAE7B7B621BD03FA00241255 /* LTCollectionView.h */,
-				AAE7B7B721BD03FA00241255 /* LTCollectionView.m */,
 				AAC24CF621B9280400536197 /* LTTitleView.h */,
 				AAC24CF721B9280400536197 /* LTTitleView.m */,
 				AAC24CF921B9284800536197 /* LTSegmentStyle.h */,
@@ -171,8 +164,7 @@
 				AAC24CFC21B9289700536197 /* UIView+LTFrame.h */,
 				AAC24CFD21B9289700536197 /* UIView+LTFrame.m */,
 				AA13BE7521BA200E00460E10 /* LTScrollPageViewDelegate.h */,
-				AAE7B7B921BD195600241255 /* UIViewController+LTScrollPageController.h */,
-				AAE7B7BA21BD195600241255 /* UIViewController+LTScrollPageController.m */,
+				AA0B1C1D21BF5ABD001E6E38 /* LTScrollPageView.h */,
 			);
 			path = LTScrollPageView;
 			sourceTree = "<group>";
@@ -307,12 +299,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE7B7BB21BD195600241255 /* UIViewController+LTScrollPageController.m in Sources */,
 				AAC24CF221B925E300536197 /* LTSegmentView.m in Sources */,
 				AAC24CF521B926E500536197 /* LTPageContentView.m in Sources */,
 				AAC24CFE21B9289700536197 /* UIView+LTFrame.m in Sources */,
 				AAC24CC221B9259800536197 /* ViewController.m in Sources */,
-				AAE7B7B821BD03FA00241255 /* LTCollectionView.m in Sources */,
 				AAC24CCD21B9259900536197 /* main.m in Sources */,
 				AAC24CFB21B9284800536197 /* LTSegmentStyle.m in Sources */,
 				AAC24CBF21B9259700536197 /* AppDelegate.m in Sources */,
@@ -488,6 +478,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KQ7NY22246;
 				INFOPLIST_FILE = LTScrollPageView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -505,6 +496,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KQ7NY22246;
 				INFOPLIST_FILE = LTScrollPageView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

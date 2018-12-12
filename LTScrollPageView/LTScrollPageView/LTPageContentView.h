@@ -9,15 +9,29 @@
 #import <UIKit/UIKit.h>
 #import "LTSegmentStyle.h"
 #import "LTScrollPageViewDelegate.h"
+#import "LTSegmentView.h"
 
 @interface LTPageContentView : UIView
 
-/** 必须设置代理和实现相关的方法*/
-@property(weak, nonatomic)id<LTScrollPageViewDelegate> delegate;
 
-// 当前控制器
-@property (strong, nonatomic, readonly) UIViewController *currentChildVc;
+/**
+ 实例化方法
 
-- (instancetype)initWithFrame:(CGRect)frame segmentStyle:(LTSegmentStyle *)segmentStyle parentViewController:(UIViewController *)parentViewController delegate:(id<LTScrollPageViewDelegate>) delegate;
+ @param frame frame
+ @param childVCs 子控制器的数组
+ @param parentVC 父类
+ @param segmentStyle 基础设置
+ @param delegate LTScrollPageViewDelegate
+ @return 实例
+ */
+- (instancetype)initWithFrame:(CGRect)frame
+                     childVCs:(NSArray *)childVCs
+                     parentVC:(UIViewController *)parentVC
+                 segmentStyle:(LTSegmentStyle *)segmentStyle
+                     delegate:(id<LTScrollPageViewDelegate>)delegate;
+/** 给外界设置显示第几个页面 */
+- (void)adjustPageContentViewCurrentIndex:(NSInteger)currentIndex animated:(BOOL)animated;
+
+@property (nonatomic, weak) id<LTScrollPageViewDelegate>delegate;
 
 @end

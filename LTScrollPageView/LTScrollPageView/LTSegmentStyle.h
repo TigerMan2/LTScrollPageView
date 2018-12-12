@@ -32,23 +32,25 @@ typedef NS_ENUM(NSUInteger, TitleImagePosition) {
 @property (nonatomic, assign, getter=isSegmentViewBounces) BOOL segmentViewBounces;
 /** 标题颜色是否渐变 默认是NO */
 @property (nonatomic, assign, getter=isGradualChangeTitleColor) BOOL gradualChangeTitleColor;
-/** 标题是否可滚动 */
+/** 标题是否可滚动 默认是YES*/
 @property (nonatomic, assign, getter=isScrollTitle) BOOL scrollTitle;
-/** 是否自动调整标题的宽度 */
+/** 是否自动调整标题的宽度 默认是NO*/
 @property (nonatomic, assign, getter=isAutoAdjustTitlesWidth) BOOL autoAdjustTitlesWidth;
-/** 是否自动调整遮盖的宽度 */
+/** 是否自动调整遮盖的宽度 默认是NO*/
 @property (assign, nonatomic, getter=isAdjustCoverOrLineWidth) BOOL adjustCoverOrLineWidth;
 /** 内容的View的弹性 默认是YES */
 @property (nonatomic, assign, getter=isContentViewBounces) BOOL contentViewBounces;
 /** 内容的View是否可以滑动 默认是YES */
 @property (nonatomic, assign, getter=isScrollContentView) BOOL scrollContentView;
+/** 是否在开始滚动的时候就调整标题栏 默认为NO */
+@property (assign, nonatomic, getter=isAdjustTitleWhenBeginDrag) BOOL adjustTitleWhenBeginDrag;
 
 
 /** 滚动条的颜色 */
 @property (nonatomic, strong) UIColor *scrollLineColor;
 /** 遮盖的背景颜色 */
-@property (nonatomic, strong) UIColor *coverBacggroundColor;
-/** 遮盖的圆角 */
+@property (nonatomic, strong) UIColor *coverBackgroundColor;
+/** 遮盖的圆角 默认是14*/
 @property (nonatomic, assign) CGFloat coverCornerRadius;
 /** 标题的字体 默认是14 */
 @property (nonatomic, strong) UIFont *titleFont;
@@ -63,6 +65,6 @@ typedef NS_ENUM(NSUInteger, TitleImagePosition) {
 /** 选中标题的颜色 */
 @property (nonatomic, strong) UIColor *selectedTitleColor;
 /** 遮盖的高度 默认是28 */
-@property (nonatomic, assign) BOOL coverHeight;
+@property (nonatomic, assign) CGFloat coverHeight;
 
 @end

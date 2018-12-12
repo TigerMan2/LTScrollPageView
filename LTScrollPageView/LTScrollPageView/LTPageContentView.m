@@ -7,177 +7,105 @@
 //
 
 #import "LTPageContentView.h"
-#import "LTCollectionView.h"
-#import "UIViewController+LTScrollPageController.h"
+#import "UIView+LTFrame.h"
+
+#define IOS_VERSION ([[[UIDevice currentDevice] systemVersion] floatValue])
+static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 
 @interface LTPageContentView ()
 <
-    UIScrollViewDelegate,
     UICollectionViewDelegate,
-    UICollectionViewDataSource
+    UICollectionViewDataSource,
+    UIScrollViewDelegate
 >
-{
-    CGFloat _oldOffSetX;
-    BOOL _isLoadFirstView;
-    NSInteger _sysVersion;
-}
-/** LTCollectionView */
-@property (nonatomic, strong) LTCollectionView *collectionView;
-/** collectionView 的布局 */
-@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
-/** 父类 用于处理添加子控制器 使用weak避免循环引用 */
-@property (nonatomic, weak) UIViewController *parentViewController;
-@property (nonatomic, assign) NSInteger itemsCount;
 
-/** 所有的子控制器 */
-@property (nonatomic, strong) NSMutableDictionary<NSString *, UIViewController *> *childVcsDic;
-
-@property (nonatomic, assign) NSInteger currentIndex;
-@property (nonatomic, assign) NSInteger oldIndex;
-// 滚动超过页面(直接设置contentOffSet导致)
-@property (assign, nonatomic) BOOL scrollOverOnePage;
-
+@property (nonatomic, weak) UIViewController *parentVC;//父视图
+@property (nonatomic, strong) NSArray *childsVCs;//子视图数组
+@property (nonatomic, weak) UICollectionView *collectionView;
+@property (nonatomic, assign) CGFloat startOffsetX;
 @property (nonatomic, strong) LTSegmentStyle *segmentStyle;
+@property (assign, nonatomic) NSInteger currentIndex;
+@property (assign, nonatomic) NSInteger oldIndex;
+// 当这个属性设置为YES的时候 就不用处理 scrollView滚动的计算
+@property (assign, nonatomic) BOOL forbidTouchToAdjustPosition;
 
 @end
 
 @implementation LTPageContentView
-#define cellID @"cellID"
 
-- (instancetype)initWithFrame:(CGRect)frame segmentStyle:(LTSegmentStyle *)segmentStyle parentViewController:(UIViewController *)parentViewController delegate:(id<LTScrollPageViewDelegate>) delegate
-{
+- (instancetype)initWithFrame:(CGRect)frame
+                     childVCs:(NSArray *)childVCs
+                     parentVC:(UIViewController *)parentVC
+                 segmentStyle:(LTSegmentStyle *)segmentStyle
+                     delegate:(id<LTScrollPageViewDelegate>)delegate {
     self = [super initWithFrame:frame];
     if (self) {
-        self.parentViewController = parentViewController;
-        self.segmentStyle = segmentStyle;
+        self.parentVC = parentVC;
+        self.childsVCs = childVCs;
         self.delegate = delegate;
+        self.segmentStyle = segmentStyle;
         
-        [self setupSubviews];
-        [self addSubview:self.collectionView];
-        
-        [self addNotification];
+        [self setupSubViews];
     }
     return self;
 }
 
-- (void)setupSubviews {
-    _oldIndex = -1;
+#pragma mark --setup
+- (void)setupSubViews
+{
+    _startOffsetX = 0;
     _currentIndex = 0;
-    _oldOffSetX = 0.0f;
-    _isLoadFirstView = YES;
-    _sysVersion = [[[UIDevice currentDevice] systemVersion] integerValue];
+    _oldIndex = -1;
+    _forbidTouchToAdjustPosition = NO;
     
-    if ([_delegate respondsToSelector:@selector(numberOfChildViewControllers)]) {
-        self.itemsCount = [_delegate numberOfChildViewControllers];
-    } else {
-        NSAssert(NO, @"必须实现的代理方法");
+    for (UIViewController *childVC in self.childsVCs) {
+        [self.parentVC addChildViewController:childVC];
     }
-    
-    UINavigationController *navi = (UINavigationController *)self.parentViewController.parentViewController;
-    if ([navi isKindOfClass:[UINavigationController class]]) {
-        if (navi.viewControllers.count == 1) return;
-        
-        if (navi.interactivePopGestureRecognizer) {
-            
-            __weak typeof(self) weakSelf = self;
-            [_collectionView setupScrollViewShouldBeginPanGestureHandler:^BOOL(LTCollectionView *collectionView, UIPanGestureRecognizer *panGesture) {
-                
-                CGFloat transionX = [panGesture translationInView:panGesture.view].x;
-                if (collectionView.contentOffset.x == 0 && transionX > 0) {
-                    navi.interactivePopGestureRecognizer.enabled = YES;
-                }
-                else {
-                    navi.interactivePopGestureRecognizer.enabled = NO;
-                    
-                }
-                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(scrollPageController:contentScrollView:shouldBeginPanGesture:)]) {
-                    return [weakSelf.delegate scrollPageController:weakSelf.parentViewController contentScrollView:collectionView shouldBeginPanGesture:panGesture];
-                }
-                else return YES;
-            }];
-        }
-    }
-    
-}
-
-- (void)addNotification {
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMemoryWarningHander:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-}
-
-- (void)receiveMemoryWarningHander:(NSNotificationCenter *)noti {
-    
-    __weak typeof(self) weakSelf = self;
-    [_childVcsDic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, UIViewController<LTScrollPageViewDelegate> * _Nonnull childVc, BOOL * _Nonnull stop) {
-        __strong typeof(self) strongSelf = weakSelf;
-        if (strongSelf) {
-            if (childVc != strongSelf.currentChildVc) {
-                [self->_childVcsDic removeObjectForKey:key];
-                [LTPageContentView removeChildVc:childVc];
-            }
-        }
-        
-    }];
-    
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (self.currentChildVc) {
-        self.currentChildVc.view.frame = self.bounds;
-    }
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-#if DEBUG
-    NSLog(@"ZJContentView---销毁");
-#endif
-}
-
-#pragma mark - public helper
-
-/** 给外界可以设置ContentOffSet的方法 */
-- (void)setContentOffSet:(CGPoint)offset animated:(BOOL)animated {
-    NSInteger currentIndex = offset.x/self.collectionView.bounds.size.width;
-    _oldIndex = _currentIndex;
-    self.currentIndex = currentIndex;
-    _scrollOverOnePage = NO;
-    
-    NSInteger page = labs(_currentIndex-_oldIndex);
-    if (page>=2) {// 需要滚动两页以上的时候, 跳过中间页的动画
-        _scrollOverOnePage = YES;
-    }
-    
-    [self.collectionView setContentOffset:offset animated:animated];
-    
-}
-
-/** 给外界刷新视图的方法 */
-- (void)reload {
-    
-    [self.childVcsDic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, UIViewController<LTScrollPageViewDelegate> * _Nonnull childVc, BOOL * _Nonnull stop) {
-        [LTPageContentView removeChildVc:childVc];
-        childVc = nil;
-        
-    }];
-    self.childVcsDic = nil;
-    [self setupSubviews];
     [self.collectionView reloadData];
-    [self setContentOffSet:CGPointZero animated:NO];
+}
+
+#pragma mark UICollectionView
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.childsVCs.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCellIdentifier forIndexPath:indexPath];
+    if (IOS_VERSION < 8.0) {
+        [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        UIViewController *childVC = self.childsVCs[indexPath.item];
+        childVC.view.frame = cell.contentView.bounds;
+        [cell.contentView addSubview:childVC.view];
+    }
+    return cell;
+}
+
+#ifdef __IPHONE_8_0
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UIViewController *childVc = self.childsVCs[indexPath.row];
+    childVc.view.frame = cell.contentView.bounds;
+    [cell.contentView addSubview:childVc.view];
+}
+#endif
+
+#pragma mark UIScrollView
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _startOffsetX = scrollView.contentOffset.x;
+    self.forbidTouchToAdjustPosition = NO;
     
+    if (self.delegate && [self.delegate respondsToSelector:@selector(LTContentViewWillBeginDragging:)]) {
+        [self.delegate LTContentViewWillBeginDragging:self];
+    }
 }
 
-+ (void)removeChildVc:(UIViewController *)childVc {
-    [childVc willMoveToParentViewController:nil];
-    [childVc.view removeFromSuperview];
-    [childVc removeFromParentViewController];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (// 点击标题滚动
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.forbidTouchToAdjustPosition || //点击标题切换
         scrollView.contentOffset.x <= 0 || // first or last
         scrollView.contentOffset.x >= scrollView.contentSize.width - scrollView.bounds.size.width) {
         return;
@@ -186,7 +114,7 @@
     NSInteger tempIndex = tempProgress;
     
     CGFloat progress = tempProgress - floor(tempProgress);
-    CGFloat deltaX = scrollView.contentOffset.x - _oldOffSetX;
+    CGFloat deltaX = scrollView.contentOffset.x - _startOffsetX;
     
     if (deltaX > 0) {// 向左
         if (progress == 0.0) {
@@ -204,144 +132,69 @@
     else {
         return;
     }
-    //    NSLog(@"old ---- %ld current --- %ld", _oldIndex, _currentIndex);
     
-    if ([_delegate respondsToSelector:@selector(contentViewDidMoveFromIndex:toIndex:progress:)]) {
-        [_delegate contentViewDidMoveFromIndex:_oldIndex toIndex:_currentIndex progress:progress];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(LTContentViewDidScroll:oldIndex:currentIndex:progress:)]) {
+        [self.delegate LTContentViewDidScroll:self oldIndex:_oldIndex currentIndex:_currentIndex progress:progress];
     }
-    
 }
-
-/** 滚动减速完成时再更新title的位置 */
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+/**
+ *  滑动停止 已经结束减速时调用
+ */
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     NSInteger currentIndex = (scrollView.contentOffset.x / self.bounds.size.width);
-    if ([_delegate respondsToSelector:@selector(contentViewDidMoveFromIndex:toIndex:progress:)]) {
-        [_delegate contentViewDidMoveFromIndex:_oldIndex toIndex:_currentIndex progress:1.0];
-    }
     
-    // 调整title
-    if ([_delegate respondsToSelector:@selector(adjustSegmentTitleOffsetToCurrentIndex:)]) {
-        [_delegate adjustSegmentTitleOffsetToCurrentIndex:currentIndex];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(LTContenViewDidEndDecelerating:oldIndex:currentIndex:)]) {
+        [self.delegate LTContenViewDidEndDecelerating:self oldIndex:currentIndex currentIndex:currentIndex];
     }
 }
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    _oldOffSetX = scrollView.contentOffset.x;
-}
-
+/**
+ *  滑动停止 手指离开屏幕之后不再滚动时调用
+ */
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    UINavigationController *navi = (UINavigationController *)self.parentViewController.parentViewController;
-    if ([navi isKindOfClass:[UINavigationController class]] && navi.interactivePopGestureRecognizer) {
-        navi.interactivePopGestureRecognizer.enabled = YES;
-    }
-}
-
-#pragma mark - UICollectionViewDelegate --- UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
-    return _itemsCount;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
-    // 移除subviews 避免重用内容显示错误
-    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    if (_sysVersion < 8) {
-        [self setupChildVcForCell:cell atIndexPath:indexPath];
-    }
-    
-    return cell;
-}
-
-
-- (void)setupChildVcForCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if (_currentIndex != indexPath.row) {
-        return; // 跳过中间的多页
-    }
-    
-    _currentChildVc = [self.childVcsDic valueForKey:[NSString stringWithFormat:@"%ld", (long)indexPath.row]];
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(childViewController:forIndex:)]) {
-        if (_currentChildVc == nil) {
-            _currentChildVc = [_delegate childViewController:nil forIndex:indexPath.row];
-            // 设置当前下标
-            _currentChildVc.lt_currentIndex = indexPath.row;
-            [self.childVcsDic setValue:_currentChildVc forKey:[NSString stringWithFormat:@"%ld", (long)indexPath.row]];
-        } else {
-            [_delegate childViewController:_currentChildVc forIndex:indexPath.row];
+    if (!decelerate) {
+        NSInteger currentIndex = (scrollView.contentOffset.x / self.bounds.size.width);
+        if (self.delegate && [self.delegate respondsToSelector:@selector(LTContenViewDidEndDecelerating:oldIndex:currentIndex:)]) {
+            [self.delegate LTContenViewDidEndDecelerating:self oldIndex:currentIndex currentIndex:currentIndex];
         }
-    } else {
-        NSAssert(NO, @"必须设置代理和实现代理方法");
-    }
-    // 这里建立子控制器和父控制器的关系
-    if ([_currentChildVc isKindOfClass:[UINavigationController class]]) {
-        NSAssert(NO, @"不要添加UINavigationController包装后的子控制器");
-    }
-    if (_currentChildVc.lt_scrollViewController != self.parentViewController) {
-        [self.parentViewController addChildViewController:_currentChildVc];
-    }
-    _currentChildVc.view.frame = cell.contentView.bounds;
-    [cell.contentView addSubview:_currentChildVc.view];
-    [_currentChildVc didMoveToParentViewController:self.parentViewController];
-    
-    
-}
-
-#pragma mark - getter
-
-- (void)setCurrentIndex:(NSInteger)currentIndex {
-    if (_currentIndex != currentIndex) {
-        _currentIndex = currentIndex;
-        if ([_delegate respondsToSelector:@selector(adjustSegmentTitleOffsetToCurrentIndex:)]) {
-            [_delegate adjustSegmentTitleOffsetToCurrentIndex:currentIndex];
-        }
-        
     }
 }
 
-- (LTCollectionView *)collectionView {
+#pragma mark setter
+
+- (void)adjustPageContentViewCurrentIndex:(NSInteger)currentIndex animated:(BOOL)animated {
+    if (currentIndex < 0||currentIndex >= self.childsVCs.count) {
+        return;
+    }
+    self.forbidTouchToAdjustPosition = YES;
+    self.currentIndex = currentIndex;
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:animated];
+}
+
+#pragma mark --LazyLoad
+
+- (UICollectionView *)collectionView
+{
     if (!_collectionView) {
-        LTCollectionView *collectionView = [[LTCollectionView alloc] initWithFrame:self.bounds collectionViewLayout:self.flowLayout];
-        [collectionView setBackgroundColor:[UIColor yellowColor]];
-        collectionView.pagingEnabled = YES;
-        collectionView.scrollsToTop = NO;
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+        flowLayout.itemSize = self.bounds.size;
+        flowLayout.minimumLineSpacing = 0;
+        flowLayout.minimumInteritemSpacing = 0;
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        
+        UICollectionView * collectionView = [[UICollectionView alloc]initWithFrame:self.bounds collectionViewLayout:flowLayout];
         collectionView.showsHorizontalScrollIndicator = NO;
-        collectionView.delegate = self;
-        collectionView.dataSource = self;
-        collectionView.bounces = YES;
-        [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellID];
+        collectionView.pagingEnabled = YES;
         collectionView.bounces = self.segmentStyle.isContentViewBounces;
         collectionView.scrollEnabled = self.segmentStyle.isScrollContentView;
+        collectionView.delegate = self;
+        collectionView.dataSource = self;
+        [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:collectionCellIdentifier];
         [self addSubview:collectionView];
-        _collectionView = collectionView;
+        self.collectionView = collectionView;
     }
     return _collectionView;
 }
 
-- (UICollectionViewFlowLayout *)flowLayout {
-    if (!_flowLayout) {
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.itemSize = self.bounds.size;
-        flowLayout.minimumLineSpacing = 0.0;
-        flowLayout.minimumInteritemSpacing = 0.0;
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _flowLayout = flowLayout;
-    }
-    return _flowLayout;
-}
-
-- (NSMutableDictionary<NSString *,UIViewController *> *)childVcsDic {
-    if (!_childVcsDic) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        _childVcsDic = dic;
-    }
-    return _childVcsDic;
-}
 
 @end

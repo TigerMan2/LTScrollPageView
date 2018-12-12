@@ -27,6 +27,11 @@
 @property (nonatomic, strong) NSMutableArray *titleViews;
 /** 缓存计算出每个标题的宽度 */
 @property (nonatomic, strong) NSMutableArray *titleWidths;
+
+// 用于懒加载计算文字的rgba差值, 用于颜色渐变的时候设置
+@property (strong, nonatomic) NSArray *deltaRGBA;
+@property (strong, nonatomic) NSArray *selectedColorRGBA;
+@property (strong, nonatomic) NSArray *normalColorRGBA;
 @end
 
 @implementation LTSegmentView
@@ -214,7 +219,7 @@ static CGFloat const contentSizeXoffset = 20.0;
         if (self.segmentStyle.isScrollTitle) {
             self.scrollLine.frame = CGRectMake(coverX, self.lt_height - self.segmentStyle.scrollLineHeight, coverW, self.segmentStyle.scrollLineHeight);
         } else {
-            if (self.segmentStyle.isAutoAdjustTitlesWidth) {
+            if (self.segmentStyle.isAdjustCoverOrLineWidth) {
                 coverW = [self.titleWidths[_currentIndex] floatValue] + wGap;
                 coverX = (firstTitleView.lt_width - coverW) * 0.5;
             }
@@ -229,7 +234,7 @@ static CGFloat const contentSizeXoffset = 20.0;
         if (self.segmentStyle.isScrollTitle) {
             self.coverLayer.frame = CGRectMake(coverX - xGap, coverY, coverW + wGap, coverH);
         } else {
-            if (self.segmentStyle.isAutoAdjustTitlesWidth) {
+            if (self.segmentStyle.isAdjustCoverOrLineWidth) {
                 coverW = [self.titleWidths[_currentIndex] floatValue] + wGap;
                 coverX = (firstTitleView.lt_width - coverW) * 0.5;
             }
@@ -284,7 +289,7 @@ static CGFloat const contentSizeXoffset = 20.0;
                 weakSelf.scrollLine.lt_x = currentTitleView.lt_x;
                 weakSelf.scrollLine.lt_width = currentTitleView.lt_width;
             } else {
-                if (weakSelf.segmentStyle.isAutoAdjustTitlesWidth) {
+                if (weakSelf.segmentStyle.isAdjustCoverOrLineWidth) {
                     CGFloat scrollLineW = [weakSelf.titleWidths[self->_currentIndex] floatValue] + wGap;
                     CGFloat scrollLineX = currentTitleView.lt_x + (currentTitleView.lt_width - scrollLineW)*0.5;
                     weakSelf.scrollLine.lt_x = scrollLineX;
@@ -347,7 +352,7 @@ static CGFloat const contentSizeXoffset = 20.0;
             self.scrollLine.lt_x = oldTitleView.lt_x + xDistance * progress;
             self.scrollLine.lt_width = oldTitleView.lt_width + wDistance * progress;
         } else {
-            if (self.segmentStyle.autoAdjustTitlesWidth) {
+            if (self.segmentStyle.isAdjustCoverOrLineWidth) {
                 CGFloat oldScrollLineW = [self.titleWidths[oldIndex] floatValue] + wGap;
                 CGFloat currentScrollLineW = [self.titleWidths[currentIndex] floatValue] + wGap;
                 wDistance = currentScrollLineW = oldScrollLineW;
@@ -362,6 +367,22 @@ static CGFloat const contentSizeXoffset = 20.0;
                 self.scrollLine.lt_width = oldTitleView.lt_width + wDistance * progress;
             }
         }
+    }
+    // 渐变
+    if (self.segmentStyle.isGradualChangeTitleColor) {
+        
+        oldTitleView.textColor = [UIColor
+                                  colorWithRed:[self.selectedColorRGBA[0] floatValue] + [self.deltaRGBA[0] floatValue] * progress
+                                  green:[self.selectedColorRGBA[1] floatValue] + [self.deltaRGBA[1] floatValue] * progress
+                                  blue:[self.selectedColorRGBA[2] floatValue] + [self.deltaRGBA[2] floatValue] * progress
+                                  alpha:[self.selectedColorRGBA[3] floatValue] + [self.deltaRGBA[3] floatValue] * progress];
+        
+        currentTitleView.textColor = [UIColor
+                                      colorWithRed:[self.normalColorRGBA[0] floatValue] - [self.deltaRGBA[0] floatValue] * progress
+                                      green:[self.normalColorRGBA[1] floatValue] - [self.deltaRGBA[1] floatValue] * progress
+                                      blue:[self.normalColorRGBA[2] floatValue] - [self.deltaRGBA[2] floatValue] * progress
+                                      alpha:[self.normalColorRGBA[3] floatValue] - [self.deltaRGBA[3] floatValue] * progress];
+        
     }
     /** 遮盖 */
     if (self.coverLayer) {
@@ -392,6 +413,7 @@ static CGFloat const contentSizeXoffset = 20.0;
     CGFloat deltaScale = self.segmentStyle.titleBigScale - 1.0;
     oldTitleView.currentTransformSx = self.segmentStyle.titleBigScale - deltaScale * progress;
     currentTitleView.currentTransformSx = 1.0 + deltaScale * progress;
+    
 }
 
 - (void)adjustTitleOffsetToCurrentIndex:(NSInteger)currentIndex {
@@ -489,7 +511,7 @@ static CGFloat const contentSizeXoffset = 20.0;
     }
     if (!_coverLayer) {
         UIView *coverView = [[UIView alloc] init];
-        coverView.backgroundColor = self.segmentStyle.coverBacggroundColor;
+        coverView.backgroundColor = self.segmentStyle.coverBackgroundColor;
         coverView.layer.cornerRadius = self.segmentStyle.coverCornerRadius;
         coverView.layer.masksToBounds = YES;
         _coverLayer = coverView;
@@ -500,7 +522,6 @@ static CGFloat const contentSizeXoffset = 20.0;
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc] init];
-        scrollView.backgroundColor = [UIColor yellowColor];
         scrollView.showsVerticalScrollIndicator = NO;
         scrollView.showsHorizontalScrollIndicator = NO;
         scrollView.bounces = self.segmentStyle.isSegmentViewBounces;
@@ -524,6 +545,56 @@ static CGFloat const contentSizeXoffset = 20.0;
         _titleWidths = [NSMutableArray array];
     }
     return _titleWidths;
+}
+
+- (NSArray *)deltaRGBA {
+    if (_deltaRGBA == nil) {
+        NSArray *normalColorRgb = self.normalColorRGBA;
+        NSArray *selectedColorRgb = self.selectedColorRGBA;
+        
+        NSArray *delta;
+        if (normalColorRgb && selectedColorRgb) {
+            CGFloat deltaR = [normalColorRgb[0] floatValue] - [selectedColorRgb[0] floatValue];
+            CGFloat deltaG = [normalColorRgb[1] floatValue] - [selectedColorRgb[1] floatValue];
+            CGFloat deltaB = [normalColorRgb[2] floatValue] - [selectedColorRgb[2] floatValue];
+            CGFloat deltaA = [normalColorRgb[3] floatValue] - [selectedColorRgb[3] floatValue];
+            delta = [NSArray arrayWithObjects:@(deltaR), @(deltaG), @(deltaB), @(deltaA), nil];
+            _deltaRGBA = delta;
+            
+        }
+    }
+    return _deltaRGBA;
+}
+
+- (NSArray *)normalColorRGBA {
+    if (!_normalColorRGBA) {
+        NSArray *normalColorRGBA = [self getColorRGBA:self.segmentStyle.normalTitleColor];
+        NSAssert(normalColorRGBA, @"设置普通状态的文字颜色时 请使用RGBA空间的颜色值");
+        _normalColorRGBA = normalColorRGBA;
+        
+    }
+    return  _normalColorRGBA;
+}
+
+- (NSArray *)selectedColorRGBA {
+    if (!_selectedColorRGBA) {
+        NSArray *selectedColorRGBA = [self getColorRGBA:self.segmentStyle.selectedTitleColor];
+        NSAssert(selectedColorRGBA, @"设置选中状态的文字颜色时 请使用RGBA空间的颜色值");
+        _selectedColorRGBA = selectedColorRGBA;
+        
+    }
+    return  _selectedColorRGBA;
+}
+
+- (NSArray *)getColorRGBA:(UIColor *)color {
+    CGFloat numOfcomponents = CGColorGetNumberOfComponents(color.CGColor);
+    NSArray *rgbaComponents;
+    if (numOfcomponents == 4) {
+        const CGFloat *components = CGColorGetComponents(color.CGColor);
+        rgbaComponents = [NSArray arrayWithObjects:@(components[0]), @(components[1]), @(components[2]), @(components[3]), nil];
+    }
+    return rgbaComponents;
+    
 }
 
 @end

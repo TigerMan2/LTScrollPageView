@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class LTTitleView;
 @class LTSegmentView;
-@class LTCollectionView;
+@class LTPageContentView;
 
 @protocol LTSegmentViewDelegate <NSObject>
 
@@ -19,21 +19,33 @@
 
 
 @protocol LTScrollPageViewDelegate <NSObject>
-/** 将要显示的子页面的总数 */
-- (NSInteger)numberOfChildViewControllers;
-
-/** 获取到将要显示的页面的控制器
- * -reuseViewController : 这个是返回给你的controller, 你应该首先判断这个是否为nil, 如果为nil 创建对应的控制器并返回, 如果不为nil直接使用并返回
- * -index : 对应的下标
- */
-- (UIViewController *)childViewController:(UIViewController *)reuseViewController forIndex:(NSInteger)index;
 
 @optional
 
-- (BOOL)scrollPageController:(UIViewController *)scrollPageController contentScrollView:(LTCollectionView *)scrollView shouldBeginPanGesture:(UIPanGestureRecognizer *)panGesture;
+/**
+ LTPageContentView开始滑动
+ 
+ @param contentView LTPageContentView
+ */
+- (void)LTContentViewWillBeginDragging:(LTPageContentView *)contentView;
 
-- (void)contentViewDidMoveFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex progress:(CGFloat)progress;
+/**
+ LTPageContentView滑动调用
+ 
+ @param contentView LTPageContentView
+ @param oldIndex 开始滑动页面索引
+ @param currentIndex 结束滑动页面索引
+ @param progress 滑动进度
+ */
+- (void)LTContentViewDidScroll:(LTPageContentView *)contentView oldIndex:(NSInteger)oldIndex currentIndex:(NSInteger)currentIndex progress:(CGFloat)progress;
 
-- (void)adjustSegmentTitleOffsetToCurrentIndex:(NSInteger)index;
+/**
+ LTPageContentView结束滑动
+ 
+ @param contentView LTPageContentView
+ @param oldIndex 开始滑动索引
+ @param currentIndex 结束滑动索引
+ */
+- (void)LTContenViewDidEndDecelerating:(LTPageContentView *)contentView oldIndex:(NSInteger)oldIndex currentIndex:(NSInteger)currentIndex;
 
 @end
